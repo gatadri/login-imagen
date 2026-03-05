@@ -61,6 +61,9 @@ export class Background360 implements OnInit, OnDestroy {
     const mesh = new THREE.Mesh(geometry, material);
     this.scene.add(mesh);
 
+    // CAJAS DEL LOGIN
+    this.createLoginBoxes();
+
     // Controles de mouse para girar
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableZoom = false;
@@ -78,6 +81,46 @@ export class Background360 implements OnInit, OnDestroy {
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
     });
+  }
+
+  private createLoginBoxes() {
+    // Caja principal del login
+    const boxGeometry = new THREE.BoxGeometry(3, 4, 0.2);
+    const boxMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x1a1a2e,
+      transparent: true,
+      opacity: 0.8
+    });
+    const loginBox = new THREE.Mesh(boxGeometry, boxMaterial);
+    loginBox.position.set(0, 0, -10);
+    this.scene.add(loginBox);
+
+    // Caja para usuario
+    const inputGeometry = new THREE.BoxGeometry(2.5, 0.5, 0.1);
+    const inputMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x2d2d44,
+      transparent: true,
+      opacity: 0.9
+    });
+    const userBox = new THREE.Mesh(inputGeometry, inputMaterial);
+    userBox.position.set(0, 0.8, -9.8);
+    this.scene.add(userBox);
+
+    // Caja para contraseña
+    const passBox = new THREE.Mesh(inputGeometry, inputMaterial);
+    passBox.position.set(0, 0, -9.8);
+    this.scene.add(passBox);
+
+    // Botón de login
+    const buttonGeometry = new THREE.BoxGeometry(2.5, 0.5, 0.1);
+    const buttonMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x4a90e2,
+      transparent: true,
+      opacity: 0.9
+    });
+    const button = new THREE.Mesh(buttonGeometry, buttonMaterial);
+    button.position.set(0, -0.8, -9.8);
+    this.scene.add(button);
   }
 
   private animate() {
